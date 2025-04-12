@@ -6,8 +6,13 @@
 	objectVersion = 77;
 	objects = {
 
+/* Begin PBXBuildFile section */
+		18EF22582DAA65480087F08C /* WebKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 18EF22572DAA65480087F08C /* WebKit.framework */; };
+/* End PBXBuildFile section */
+
 /* Begin PBXFileReference section */
 		186194A62D63614800C6393F /* DayPlus.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DayPlus.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		18EF22572DAA65480087F08C /* WebKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WebKit.framework; path = System/Library/Frameworks/WebKit.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
@@ -36,6 +41,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				18EF22582DAA65480087F08C /* WebKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -46,6 +52,7 @@
 			isa = PBXGroup;
 			children = (
 				186194A82D63614800C6393F /* DayPlus */,
+				18EF22562DAA65480087F08C /* Frameworks */,
 				186194A72D63614800C6393F /* Products */,
 			);
 			sourceTree = "<group>";
@@ -56,6 +63,14 @@
 				186194A62D63614800C6393F /* DayPlus.app */,
 			);
 			name = Products;
+			sourceTree = "<group>";
+		};
+		18EF22562DAA65480087F08C /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				18EF22572DAA65480087F08C /* WebKit.framework */,
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
