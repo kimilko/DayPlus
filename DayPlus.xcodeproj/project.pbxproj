@@ -7,12 +7,16 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		18EF22582DAA65480087F08C /* WebKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 18EF22572DAA65480087F08C /* WebKit.framework */; };
+		35DE4FDA2DADE79900A96143 /* FirebaseAnalytics in Frameworks */ = {isa = PBXBuildFile; productRef = 35DE4FD92DADE79900A96143 /* FirebaseAnalytics */; };
+		35DE4FDC2DADE79900A96143 /* FirebaseCrashlytics in Frameworks */ = {isa = PBXBuildFile; productRef = 35DE4FDB2DADE79900A96143 /* FirebaseCrashlytics */; };
+		35DE4FDE2DADE79900A96143 /* FirebaseDynamicLinks in Frameworks */ = {isa = PBXBuildFile; productRef = 35DE4FDD2DADE79900A96143 /* FirebaseDynamicLinks */; };
+		35DE4FE02DADE79900A96143 /* FirebaseMessaging in Frameworks */ = {isa = PBXBuildFile; productRef = 35DE4FDF2DADE79900A96143 /* FirebaseMessaging */; };
+		35DE4FE22DADE79900A96143 /* FirebaseRemoteConfig in Frameworks */ = {isa = PBXBuildFile; productRef = 35DE4FE12DADE79900A96143 /* FirebaseRemoteConfig */; };
+		35DE4FE42DADE79900A96143 /* FirebaseStorage in Frameworks */ = {isa = PBXBuildFile; productRef = 35DE4FE32DADE79900A96143 /* FirebaseStorage */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		186194A62D63614800C6393F /* DayPlus.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DayPlus.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		18EF22572DAA65480087F08C /* WebKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WebKit.framework; path = System/Library/Frameworks/WebKit.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
@@ -41,7 +45,12 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				18EF22582DAA65480087F08C /* WebKit.framework in Frameworks */,
+				35DE4FE02DADE79900A96143 /* FirebaseMessaging in Frameworks */,
+				35DE4FDA2DADE79900A96143 /* FirebaseAnalytics in Frameworks */,
+				35DE4FDC2DADE79900A96143 /* FirebaseCrashlytics in Frameworks */,
+				35DE4FDE2DADE79900A96143 /* FirebaseDynamicLinks in Frameworks */,
+				35DE4FE22DADE79900A96143 /* FirebaseRemoteConfig in Frameworks */,
+				35DE4FE42DADE79900A96143 /* FirebaseStorage in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -52,7 +61,6 @@
 			isa = PBXGroup;
 			children = (
 				186194A82D63614800C6393F /* DayPlus */,
-				18EF22562DAA65480087F08C /* Frameworks */,
 				186194A72D63614800C6393F /* Products */,
 			);
 			sourceTree = "<group>";
@@ -63,14 +71,6 @@
 				186194A62D63614800C6393F /* DayPlus.app */,
 			);
 			name = Products;
-			sourceTree = "<group>";
-		};
-		18EF22562DAA65480087F08C /* Frameworks */ = {
-			isa = PBXGroup;
-			children = (
-				18EF22572DAA65480087F08C /* WebKit.framework */,
-			);
-			name = Frameworks;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -93,6 +93,12 @@
 			);
 			name = DayPlus;
 			packageProductDependencies = (
+				35DE4FD92DADE79900A96143 /* FirebaseAnalytics */,
+				35DE4FDB2DADE79900A96143 /* FirebaseCrashlytics */,
+				35DE4FDD2DADE79900A96143 /* FirebaseDynamicLinks */,
+				35DE4FDF2DADE79900A96143 /* FirebaseMessaging */,
+				35DE4FE12DADE79900A96143 /* FirebaseRemoteConfig */,
+				35DE4FE32DADE79900A96143 /* FirebaseStorage */,
 			);
 			productName = DayPlus;
 			productReference = 186194A62D63614800C6393F /* DayPlus.app */;
@@ -122,6 +128,9 @@
 			);
 			mainGroup = 1861949D2D63614700C6393F;
 			minimizedProjectReferenceProxies = 1;
+			packageReferences = (
+				35DE4FD82DADE79900A96143 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
+			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = 186194A72D63614800C6393F /* Products */;
 			projectDirPath = "";
@@ -350,6 +359,50 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		35DE4FD82DADE79900A96143 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/firebase/firebase-ios-sdk";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 11.11.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		35DE4FD92DADE79900A96143 /* FirebaseAnalytics */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 35DE4FD82DADE79900A96143 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseAnalytics;
+		};
+		35DE4FDB2DADE79900A96143 /* FirebaseCrashlytics */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 35DE4FD82DADE79900A96143 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseCrashlytics;
+		};
+		35DE4FDD2DADE79900A96143 /* FirebaseDynamicLinks */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 35DE4FD82DADE79900A96143 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseDynamicLinks;
+		};
+		35DE4FDF2DADE79900A96143 /* FirebaseMessaging */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 35DE4FD82DADE79900A96143 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseMessaging;
+		};
+		35DE4FE12DADE79900A96143 /* FirebaseRemoteConfig */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 35DE4FD82DADE79900A96143 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseRemoteConfig;
+		};
+		35DE4FE32DADE79900A96143 /* FirebaseStorage */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 35DE4FD82DADE79900A96143 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseStorage;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 1861949E2D63614700C6393F /* Project object */;
 }
