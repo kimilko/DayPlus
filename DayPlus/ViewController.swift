@@ -9,14 +9,18 @@ import UIKit
 import WebKit
 
 class ViewController: UIViewController {
-    @IBOutlet weak var webView: WKWebView!
+    private var webView: WKWebView!
     
     override func viewDidLoad() {
+        webView = WKWebView(frame: view.bounds)
+        
         webView.isInspectable = true
         
         // 웹페이지 로드 (웹앱 주소 변경 가능)
         if let url = URL(string: "http://devsun.work:18080") {
             webView.load(URLRequest(url: url))
         }
+        
+        view.addSubview(webView)
     }
 }
