@@ -8,16 +8,24 @@
 import UIKit
 import WebKit
 
-class ViewController: UIViewController {
-    @IBOutlet weak var webView: WKWebView!
+class ViewController: UIViewController, WKScriptMessageHandler {
+    func userContentController(_ userContentController: WKUserContentController, didReceive message: WKScriptMessage) {
+        
+        if let body = message.body as? [String: Any],
+           let data = body["data"] as? String {
+            print(data)
+        }
+    }
+    
+    private var webView: WKWebView!
     
     override func viewDidLoad() {
-        webView.isInspectable = true
+//        // 웹페이지 로드 (웹앱 주소 변경 가능)
+//        if let url = URL(string: "http://devsun.work:18080") {
+//            webView.load(URLRequest(url: url))
+//        }
         
-        // 웹페이지 로드 (웹앱 주소 변경 가능)
-        if let url = URL(string: "http://devsun.work:18080") {
-            webView.load(URLRequest(url: url))
-        }
+        setWebView()
         
 //        // https://velog.io/@wannabe_eung/UserNotifications-Framework%EB%A5%BC-%EC%95%8C%EC%95%84%EB%B3%B4%EC%9E%90
 //        
@@ -64,5 +72,32 @@ class ViewController: UIViewController {
 //              // Handle any errors.
 //           }
 //        }
+    }
+    
+    func setWebView() {
+        let preferences = WKPreferences()
+        preferences.javaScriptCanOpenWindowsAutomatically = true
+        
+        let contentController = WKUserContentController()
+        contentController.add(self, name: "getRequestData")
+        
+        let configuration = WKWebViewConfiguration()
+        configuration.preferences = preferences
+        configuration.userContentController = contentController
+        
+        configuration.defaultWebpagePreferences.allowsContentJavaScript = true
+        
+        webView = WKWebView(frame: view.frame, configuration: configuration)
+        webView.isInspectable = true
+        
+        loadLocalUrl()
+    }
+    
+    func loadLocalUrl() {
+        if let localUrl = Bundle.main.url(forResource: "sample", withExtension: "html") {
+            let request = URLRequest(url:localUrl)
+            webView.load(request)
+            self.view.addSubview(webView)
+        }
     }
 }

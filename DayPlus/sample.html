@@ -1,0 +1,571 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport"
+          content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no">
+    <style>
+        @font-face { font-display:swap; font-family:KBFGText; font-style:normal; font-weight:400; src:url(file:///android_asset/fonts/KBFGTextL_subset.woff2) format("woff2"), url(../font/KBFGTextL_subset.woff2) format("woff2") }
+        @font-face { font-display:swap; font-family:KBFGText; font-style:normal; font-weight:700; src:url(file:///android_asset/fonts/KBFGTextB_subset.woff2) format("woff2"), url(../font/KBFGTextB_subset.woff2) format("woff2") }
+
+        <!--비교를 위해 pre 제외-->
+        blockquote,body,button,dd,div,dl,dt,fieldset,form,h1,h2,h3,h4,h5,h6,input,li,ol,p,select,span,td,textarea,th,ul{
+        box-sizing:border-box;font-family:KBFGText,sans-serif;font-weight:400;margin:0;outline:none;padding:0}
+        article,aside,footer,header,hgroup,iframe,nav,section{box-sizing:border-box;display:block}
+
+          h1 {
+            color: white;
+            text-shadow: 1px 1px 2px black, 0 0 25px blue, 0 0 5px darkblue;
+          }
+          input[type=button], input[type=submit], input[type=reset] {
+            background-color: #4CAF50;
+            border: none;
+            color: white;
+            padding: 16px 32px;
+            text-decoration: none;
+            margin: 4px 2px;
+            cursor: pointer;
+          }
+          div.item {
+            border-style: dotted;
+            border-width: 2px;
+            width: 350px;
+            padding: 10px;
+            word-break: break-all;
+          }
+          p {
+            font: 12px, arial, sans-serif;
+          }
+          pre {
+            font: 12px, arial, sans-serif;
+          }
+    </style>
+
+    <script>
+      function nativeResult(data) {
+          console.log("[Result] "+data);
+          document.getElementById('demo').innerHTML = data;
+      }
+    </script>
+
+</head>
+<body>
+
+<h1>Native Call Sample</h1>
+
+
+<div class="item">
+    <p class="category"># INTERFACE : CommonWebInterface</p>
+    <p class="command"># ACTION : getDeviceInfo</p>
+    </br>
+    <p style= "font-size: 15px">KBFGText 폰트 테스트입니다. ABCD</p>
+    <pre style= "font-size: 15px">기본     폰트 테스트입니다. ABCD</pre>
+    <p style= "font-size: 15px; font-weight: bold">KBFGText bold 폰트 테스트입니다. ABCD</p>
+    <pre>
+# PARAMS:
+{
+    "COMMON": {
+        "APP_VERSION": "",
+        "ERROR_CODE": "",
+        "ERROR_MESSAGE": "",
+        "CALLBACK": "nativeResult"
+    }
+}
+</pre>
+    </br>
+    <input type="button" id="s" value="native call test"
+           onclick="window.location.href='nativecall://CommonWebInterface.getDeviceInfo?%7B%0A%09%22COMMON%22%3A%20%7B%0A%09%09%22APP_VERSION%22%3A%20%22%22%2C%0A%09%09%22ERROR_CODE%22%3A%20%22%22%2C%0A%09%09%22ERROR_MESSAGE%22%3A%20%22%22%2C%0A%09%09%22CALLBACK%22%3A%20%22nativeResult%22%0A%09%7D%0A%7D'">
+
+    <input type="button" value="다른앱위에 그리기 권한" onClick="reqPermissionOverlayView()" />
+    <input type="button" value="getRequestData" onClick="getRequestData('Hello Android!')" />
+    <input type="button" value="getRequestData Error" onClick="getRequestDataError('Hello Android!')" />
+    <input type="button" value="goNativeScreen" onClick="goNativeScreen()" />
+    <input type="button" value="goOpenBanking" onClick="goOpenBanking()" />
+    <input type="button" value="setLocalData" onClick="setLocalData()" />
+    <input type="button" value="getLocalData" onClick="getLocalData()" />
+    <input type="button" value="goKbPayAuth" onClick="goKbPayAuth()" />
+    <input type="button" value="goPayDetailScreen" onClick="goPayDetailScreen()" />
+    <input type="button" value="openNewWindow" onClick="openNewWindow()" />
+    <input type="button" value="reqCheckSetting(deviceNotification)" onClick="reqCheckSetting('deviceNotification')" />
+    <input type="button" value="reqCheckSetting(appNotification)" onClick="reqCheckSetting('appNotification')" />
+    <input type="button" value="reqCheckSettingWithPopup(deviceNotification)" onClick="reqCheckSettingWithPopup('deviceNotification')" />
+    <input type="button" value="reqCheckSettingWithPopup(appNotification)" onClick="reqCheckSettingWithPopup('appNotification')" />
+    <input type="button" value="CDD호출" onClick="goCDD()" />
+    <input type="button" value="openBankingHome" onClick="openBankingHome()" />
+    <p>showPaymentAuth</p>
+    <div clss="row">
+        <input type="button" value="설정" onClick="showPaymentAuth('0')" />
+        <input type="button" value="암호" onClick="showPaymentAuth('1')" />
+        <input type="button" value="지문" onClick="showPaymentAuth('2')" />
+    </div>
+    <input type="button" value="goOnlinePayment" onClick="goOnlinePayment()" />
+    <p>kbWallet</p>
+    <div clss="row">
+        <input type="button" value="KB Wallet" onClick="goKBWallet()" />
+        <input type="button" value="KB Wallet->국민비서 호출" onClick="goSecretary()" />
+    </div>
+    <p>kb 머니백카드</p>
+    <input type="button" value="머니카드 계좌연결 테스트" onClick="goMoneyBackAccount()" />
+
+    <p>goNativeScreen</p>
+    <input type="button" value="kia_view_007" onClick="goKiaView007()" />
+    <input type="button" value="kia_view_006@feed" onClick="goKiaView006feed()" />
+    <input type="text" id="scnId" value="" placeholder="스크린ID 적으세요.">
+    <input type="button" value="goNativeScreenInput" onClick="goNativeScreenInput()" />
+
+    <p>goTotalSearch</p>
+    <input type="button" value="kia_view_004@search" onClick="goTotalSearch()" />
+
+    <p>goPayScreen</p>
+    <input type="button" value="kbp_time_062(출석체크 팝업)" onClick="goKbpTime062()" />
+
+    <p>startCardOCR</p>
+    <input type="button" value="카드사용등록 OCR" onClick="startCardOCR()" />
+
+    <p>startOCR_AlienId</p>
+    <input type="button" value="외국인 신분증 OCR" onClick="startOCRAlien()" />
+
+    <p>쇼핑,여행</p>
+    <input type="button" value="항공권 결제카드 선택" onClick="selectCardForAirlineTicket()" />
+    <input type="button" value="쇼핑 카드 갯수 임의 호출" onClick="updateLifeData()" />
+
+    <p>GA4테스트</p>
+    <input type="button" value="reqGa4Event" onClick="reqGa4Event()" />
+    <input type="button" value="sendGa4Data" onClick="sendGa4Data()" />
+
+    <p>위치기반 권한 설정</p>
+    <input type="button" value="위치기반 권한 설정" onClick="callLocationActivation()" />
+    <input type="button" value="위치서비스 동의 여부 조회" onClick="callReqStuIfraSvcUtzCnsYn()" />
+
+    <script language="JavaScript" type="text/javascript">
+
+    var isMobile = {
+        Android: function () {
+            return navigator.userAgent.match(/Android/i) == null ? false : true;
+        },
+        iOS: function () {
+            return navigator.userAgent.match(/iPhone|iPad|iPod/i) == null ? false : true;
+        },
+        any: function () {
+            return (isMobile.Android() || isMobile.iOS());
+        }
+    };
+
+    function getRequestData(requestData) {
+        const json = {common:{callback:"callback"},data:"DATA-DATA"};
+
+        if (isMobile.any()) {
+            if (isMobile.Android()) {
+                kbpayBridge.getRequestData(json);
+            } else if (isMobile.iOS()) {
+                webkit.messageHandlers.getRequestData.postMessage(json);
+            }
+        }
+    }
+
+    function getRequestDataError(requestData) {
+        /*const json = '{"data":"DATA-DATA"}';*/
+        const json = '';
+        if (isMobile.any()) {
+            if (isMobile.Android()) {
+                kbpayBridge.getRequestData(json);
+            } else if (isMobile.iOS()) {
+                webkit.messageHandlers.getRequestData.postMessage(json);
+            }
+        }
+    }
+
+    function goNativeScreen() {
+        const json = '{"common": {"callback": "callback"},"menuDsc": "혜택-멤버십","menuNm": "멤버십","screenId": "kbp_even_001","svcSceDtcd": "1","moveUrl": "https://kbcard.com","params": "a=ex&b=bbbb&c=123123","kbpay": {"vldCstYn": "Y","cstAge15UndExpsYn": "Y","menuCtfPtDtcd": "1"},"liiv": null}';
+
+        if (isMobile.any()) {
+            if (isMobile.Android()) {
+                kbpayBridge.goNativeScreen(json);
+            } else if (isMobile.iOS()) {
+                webkit.messageHandlers.goNativeScreen.postMessage(json);
+           }
+        }
+    }
+
+    function goTotalSearch() {
+        /*kbp_view_999 , kia_view_010, kia_view_999*/
+        const json = '{"menuDsc":"","menuNm":"통합검색","svcSceDtcd":"2","screenId":"kia_view_004@search","moveUrl":"https://tmapps.kbcard.com/CMN/DVIEW/MOAMCXHIACMC0020","moveFullUrl":"https://tmapps.kbcard.com/CMN/DVIEW/MOAMCXHIACMC0020","kbpayWebChnDtcd":"02","params":"","cardHome":{"vldCstYn":"N","cstAge15UndExpsYn":"N","menuCtfPtDtcd":"2"},"common":{"callback":"commCb"}}';
+
+        if (isMobile.any()) {
+            if (isMobile.Android()) {
+                kbpayBridge.goNativeScreen(json);
+            } else if (isMobile.iOS()) {
+                webkit.messageHandlers.goNativeScreen.postMessage(json);
+           }
+        }
+    }
+
+    function openBankingHome() {
+        const json = '{"common": {"callback": "callback"},"screenId": "kbp_maop_001"}';
+
+        if (isMobile.any()) {
+            if (isMobile.Android()) {
+                kbpayBridge.goNativeScreen(json);
+            } else if (isMobile.iOS()) {
+                webkit.messageHandlers.goNativeScreen.postMessage(json);
+           }
+        }
+    }
+
+    function goOpenBanking() {
+        const json = '{"isAvailableRemittance":"Y","cstAcnoMskn":"aaaa123","cstAcnoEnc":"12345678","pmaKbCd":"004","common":{"callback":"fnPayOpenBankCallBack"}}';
+
+        if (isMobile.any()) {
+            if (isMobile.Android()) {
+                kbpayBridge.openBankingRemittance(json);
+            } else if (isMobile.iOS()) {
+                webkit.messageHandlers.goNativeScreen.postMessage(json);
+           }
+        }
+    }
+
+    function setLocalData() {
+        const json = '{"common": {"callback": "callback"},"key": "menu","value": "testtttt"}';
+
+        if (isMobile.any()) {
+            if (isMobile.Android()) {
+                kbpayBridge.setLocalData(json);
+            } else if (isMobile.iOS()) {
+                webkit.messageHandlers.goNativeScreen.postMessage(json);
+           }
+        }
+    }
+
+    function getLocalData() {
+        const json = '{"common": {"callback": "callback"},"key": "menu"}';
+        if (isMobile.any()) {
+            if (isMobile.Android()) {
+                kbpayBridge.getLocalData(json);
+            } else if (isMobile.iOS()) {
+                webkit.messageHandlers.goNativeScreen.postMessage(json);
+           }
+        }
+    }
+
+    function goKbPayAuth() {
+      const json = '{"common": {"callback": "callback"},"pageCode": "test"}';
+
+      if(isMobile.any()) {
+        if(isMobile.Android()) {
+          kbpayBridge.goKbPayAuth(json);
+        } else if(isMobile.iOS()) {
+          webkit.messageHandlers.goNativeScreen.postMessage(json);
+        }
+      }
+    }
+
+    function reqPermissionOverlayView() {
+        const json = '{"common": {"callback": "callBackFunc"}, "visibleNotSeenFor1Month": "Y"}';
+
+        if (isMobile.any()) {
+            if (isMobile.Android()) {
+                kbpayBridge.reqPermissionOverlayView(json);
+            } else if (isMobile.iOS()) {
+                webkit.messageHandlers.reqPermissionOverlayView.postMessage(json);
+           }
+        }
+    }
+
+    function showPaymentAuth(type) {
+        const json = '{"common": {"callback": "callback"},"type": '+ type +'}';
+
+        if(isMobile.any()) {
+          if(isMobile.Android()) {
+            integrationBridge.showPaymentAuthPopup(json);
+          } else if(isMobile.iOS()) {
+            webkit.messageHandlers.goNativeScreen.postMessage(json);
+          }
+        }
+    }
+
+    function goPayDetailScreen() {
+        const json = '{"common": {"callback": "callback"},"screenId": "kbp_even_002", "screenDesc": "이벤트-상세", "svcSceDtcd": "1", "authYn": "N", "moveUrl": "", "params": "eventId=123"}';
+
+        if(isMobile.any()) {
+          if(isMobile.Android()) {
+            kbpayBridge.goPayDetailScreen(json);
+          } else if(isMobile.iOS()) {
+            webkit.messageHandlers.goNativeScreen.postMessage(json);
+          }
+        }
+    }
+
+    function goBack() {
+        console.log("goBack");
+        if (isMobile.any()) {
+            if (isMobile.Android()) {
+                kbpayBridge.closeWindow("webClose");
+            } else if (isMobile.iOS()) {
+                webkit.messageHandlers.goNativeScreen.postMessage(json);
+           }
+        }
+    }
+
+    function callback(response) {
+        console.log(response);
+        document.getElementById("demo").innerHTML = JSON.stringify(JSON.parse(response), null, 2);
+    }
+
+    function goOnlinePayment() {
+        const json = '{"common": {"callback": "callback"},"srCode": "1234567"}';
+
+        if (isMobile.any()) {
+            if (isMobile.Android()) {
+                kbpayBridge.goOnlinePayment(json);
+            } else if (isMobile.iOS()) {
+                webkit.messageHandlers.goNativeScreen.postMessage(json);
+           }
+        }
+    }
+
+    function goKBWallet() {
+        const json = "{'common': {'callback': 'callBackFunc'},'menuDsc': 'KBWallet','menuNm': 'KB Wallet','screenId': 'kbp_wllt_001','svcSceDtcd': '1','moveUrl': 'https://mkbwallet.kbstar.com','params': '','kbpay': {'vldCstYn': 'N','cstAge15UndExpsYn': 'N','menuCtfPtDtcd': '2'},'liiv': {'menuId': 'kbp_ipno_001','loginMandatoryYn': 'Y'},'titlebar' : {'visible' : 'Y','title' : 'KB Wallet','lType' : '2','rType' : '3'}}";
+
+        if (isMobile.any()) {
+            if (isMobile.Android()) {
+                kbpayBridge.goNativeScreen(json);
+            } else if (isMobile.iOS()) {
+                webkit.messageHandlers.goNativeScreen.postMessage(json);
+           }
+        }
+    }
+
+    function goSecretary() {
+        const json = "{'common': {'callback': 'callBackFunc'},'menuDsc': '국민비서','menuNm': '국민비서','screenId': 'kbp_ipno_005','svcSceDtcd': '1','moveUrl': 'https://kbcard.com','params': '','kbpay': {'vldCstYn': 'N','cstAge15UndExpsYn': 'N','menuCtfPtDtcd': '2'},'liiv': {'menuId': 'kbp_ipno_001','loginMandatoryYn': 'Y'},'titlebar' : {'visible' : 'Y','title' : 'KB Wallet','lType' : '2','rType' : '3'}}";
+
+        if (isMobile.any()) {
+            if (isMobile.Android()) {
+                kbpayBridge.goNativeScreen(json);
+            } else if (isMobile.iOS()) {
+                webkit.messageHandlers.goNativeScreen.postMessage(json);
+           }
+        }
+    }
+
+    function goCDD() {
+        const json = "{'common': {'callback': 'callBackFunc'},'menuDsc': '국민비서','menuNm': '국민비서','screenId': 'kbp_cddg_028','svcSceDtcd': '1','moveUrl': 'https://kbcard.com','params': '','kbpay': {'vldCstYn': 'N','cstAge15UndExpsYn': 'N','menuCtfPtDtcd': '2'},'liiv': {'menuId': 'kbp_ipno_001','loginMandatoryYn': 'Y'},'titlebar' : {'visible' : 'Y','title' : 'KB Wallet','lType' : '2','rType' : '3'}}";
+
+        if (isMobile.any()) {
+            if (isMobile.Android()) {
+                kbpayBridge.goNativeScreen(json);
+            } else if (isMobile.iOS()) {
+                webkit.messageHandlers.goNativeScreen.postMessage(json);
+           }
+        }
+    }
+
+    function openNewWindow() {
+        const json = '{"url":"https://www.google.com","common":{"callback":"callBack"}}';
+
+        if (isMobile.any()) {
+            if (isMobile.Android()) {
+                kbpayBridge.openNewWindow(json);
+            } else if (isMobile.iOS()) {
+                webkit.messageHandlers.openNewWindow.postMessage(json);
+           }
+        }
+    }
+
+    function reqCheckSetting(type) {
+        const json = '{"type":'+ type +',"common":{"callback":"callback"}}';
+
+        if (isMobile.any()) {
+            if (isMobile.Android()) {
+                kbpayBridge.reqCheckSetting(json);
+            } else if (isMobile.iOS()) {
+                webkit.messageHandlers.reqCheckSetting.postMessage(json);
+           }
+        }
+    }
+
+    function reqCheckSettingWithPopup(type) {
+        const json = '{"type":'+ type +',"common":{"callback":"callback"}}';
+
+        if (isMobile.any()) {
+            if (isMobile.Android()) {
+                kbpayBridge.reqCheckSettingWithPopup(json);
+            } else if (isMobile.iOS()) {
+                webkit.messageHandlers.reqCheckSettingWithPopup.postMessage(json);
+           }
+        }
+    }
+
+    function goMoneyBackAccount() {
+        const json = "{'common': {'callback': 'callBackFunc'},'menuDsc': 'KB Pay 머니','menuNm': 'KB Pay 머니','screenId': 'kbp_pfmm_039','svcSceDtcd': '1','moveUrl': '/','params': '','kbpay': {'vldCstYn': '','cstAge15UndExpsYn': 'Y','menuCtfPtDtcd': '2', 'authYn':'N'},'liiv': {'menuId': 'kbp_ipno_001','loginMandatoryYn': 'Y'},'titlebar' : {'visible' : 'Y','title' : 'KB Pay 머니','lType' : '2','rType' : '3'}}";
+
+        if (isMobile.any()) {
+            if (isMobile.Android()) {
+                kbpayBridge.goNativeScreen(json);
+            } else if (isMobile.iOS()) {
+                webkit.messageHandlers.goNativeScreen.postMessage(json);
+           }
+        }
+    }
+
+    function goKiaView007() {
+        const json = "{'common': {'callback': 'callBackFunc'},'menuDsc': 'kiaview007','menuNm': 'kiaview007','screenId': 'kia_view_007','svcSceDtcd': '4','moveUrl': 'https://m.kbcard.com','params': '','kbpay': {'vldCstYn': '','cstAge15UndExpsYn': 'Y','menuCtfPtDtcd': '2', 'authYn':'N'},'liiv': {'menuId': 'kia_view_007','loginMandatoryYn': 'Y'},'titlebar' : {'visible' : 'Y','title' : 'kiaview007','lType' : '2','rType' : '3'}}";
+
+        if (isMobile.any()) {
+            if (isMobile.Android()) {
+                kbpayBridge.goNativeScreen(json);
+            } else if (isMobile.iOS()) {
+                webkit.messageHandlers.goNativeScreen.postMessage(json);
+           }
+        }
+    }
+
+     function goKiaView006feed() {
+        const json = "{'common': {'callback': 'callBackFunc'},'menuDsc': 'kiaview006@feed','menuNm': 'kiaview006@feed','screenId': 'kia_view_006@feed','svcSceDtcd': '2','moveUrl': 'https://www.kbpaytip.com/news/23-06-4-sense','params': '','titleBar' : {'visible' : 'Y','title' : 'kiaview006@feed','lType' : '2','rType' : '3'}}";
+
+        if (isMobile.any()) {
+            if (isMobile.Android()) {
+                kbpayBridge.goNativeScreen(json);
+            } else if (isMobile.iOS()) {
+                webkit.messageHandlers.goNativeScreen.postMessage(json);
+           }
+        }
+    }
+
+
+
+    function goNativeScreenInput() {
+        const scnid = document.getElementById('scnId').value;
+
+        const json = "{'common': {'callback': 'callBackFunc'},'menuDsc': 'goNativeScreenInput','menuNm': 'goNativeScreenInput','screenId':"+ scnid +",'svcSceDtcd': '4','moveUrl': 'https://m.youtube.com','params': '','kbpay': {'vldCstYn': '','cstAge15UndExpsYn': 'Y','menuCtfPtDtcd': '2', 'authYn':'N'},'liiv': {'menuId': '#scnId','loginMandatoryYn': 'Y'},'titlebar' : {'visible' : 'Y','title' : 'goNativeScreenInput_liiv','lType' : '2','rType' : '3'}}";
+
+        if (isMobile.any()) {
+            if (isMobile.Android()) {
+                kbpayBridge.goNativeScreen(json);
+            } else if (isMobile.iOS()) {
+                webkit.messageHandlers.goNativeScreen.postMessage(json);
+           }
+        }
+    }
+
+    function goKbpTime062() {
+        const json = "{'screenId':'kbp_time_062','params':'MBSEV15={\"body\":{\"evntPntPymSc\":\"5\",\"evntPntUnt\":\"P\",\"evntPntNm\":\"포인트리\",\"evntFnsMnWrds\":\"출석체크 리워드가 적립되었어요.\",\"evntFnsSbWrds\":\"\"}}','common':{'callback':'goPayScreen8c21e2369a84e9d76a7bb724cb3bea2fcf016dc95c9ff31e129afd241ead88d3'}}";
+
+        if (isMobile.any()) {
+            if (isMobile.Android()) {
+                kbpayBridge.goPayScreen(json);
+            } else if (isMobile.iOS()) {
+                webkit.messageHandlers.goPayScreen.postMessage(json);
+           }
+        }
+    }
+
+
+    function startCardOCR() {
+        const json = "{'common':{'callback':'callBackFunc'}}";
+
+        if (isMobile.any()) {
+            if (isMobile.Android()) {
+                kbpayBridge.startCardOCR(json);
+            } else if (isMobile.iOS()) {
+                webkit.messageHandlers.startCardOCR.postMessage(json);
+           }
+        }
+    }
+
+    function startOCRAlien() {
+        const json = "{'common':{'callback':'callBackFunc'}, 'type':'1','message':'msg'}";
+
+        if (isMobile.any()) {
+            if (isMobile.Android()) {
+                kbpayBridge.startOCR(json);
+            } else if (isMobile.iOS()) {
+                webkit.messageHandlers.startOCR.postMessage(json);
+           }
+        }
+    }
+
+    function selectCardForAirlineTicket() {
+        const json = '{"common":{"callback":"callback"}, "ticketType":"1"}';
+
+         if (isMobile.any()) {
+            if (isMobile.Android()) {
+                kbpayBridge.selectCardForAirlineTicket(json);
+            } else if (isMobile.iOS()) {
+                webkit.messageHandlers.selectCardForAirlineTicket.postMessage(json);
+           }
+        }
+    }
+
+    function callLocationActivation() {
+        const json = "{'common':{'callback':'callBackFunc'}}";
+
+        if (isMobile.any()) {
+            if (isMobile.Android()) {
+                kbpayBridge.requestLocationActivation(json);
+            } else if (isMobile.iOS()) {
+                webkit.messageHandlers.requestLocationActivation.postMessage(json);
+           }
+        }
+    }
+
+    function callReqStuIfraSvcUtzCnsYn() {
+        const json = "{'common':{'callback':'callBackFunc'}}";
+
+        if (isMobile.any()) {
+            if (isMobile.Android()) {
+                kbpayBridge.reqStuIfraSvcUtzCnsYn(json);
+            } else if (isMobile.iOS()) {
+                webkit.messageHandlers.reqStuIfraSvcUtzCnsYn.postMessage(json);
+           }
+        }
+    }
+
+    function updateLifeData() {
+        const json = '{"common":{"callback":"callback"}, "shoppingBasketCnt":"99"}';
+
+         if (isMobile.any()) {
+            if (isMobile.Android()) {
+                kbpayBridge.updateLifeData(json);
+            } else if (isMobile.iOS()) {
+                webkit.messageHandlers.updateLifeData.postMessage(json);
+           }
+        }
+    }
+
+    function callBackFuncWithClose(result){
+        console.log("[Result :callBackFunc] "+result);
+        const json = '{"type":"1","common":{"callback":"callback"}}';
+        kbpayBridge.closeWindow(json)
+    }
+
+    function callBackFunc(result){
+        console.log("[Result :callBackFunc] "+result);
+        confirm("[Result :callBackFunc] "+result);
+    }
+
+
+    function reqGa4Event() {
+        const json = '{"data":"{\\"type\\":\\"P\\",\\"title\\":\\"메인홈\\",\\"location\\":\\"kbp_main_101\\",\\"dimension9\\":\\"MOBILE WEB\\",\\"dimension10\\":\\"KB Pay\\",\\"dimension12\\":\\"kbp_main_101\\",\\"dimension13\\":\\"/webApp/plus/index.html\\"}","common":{"callback":"callBackFunc"}}';
+
+        if (isMobile.any()) {
+            if (isMobile.Android()) {
+                kbpayBridge.reqGa4Event(json);
+            } else if (isMobile.iOS()) {
+                webkit.messageHandlers.reqGa4Event.postMessage(json);
+           }
+        }
+    }
+
+    function sendGa4Data(){
+        const json = '{"type":"extlib","param":{"name":"DevicePlugin","method":"sendGa4Data","param":{"location":"MMOM0101?mainCC=","dimension10":"카드","dimension11":"기타","dimension12":"MMOM0101","dimension13":"https:\/\/tmapps.kbcard.com\/MKB\/DVIEW\/MMOM0101","type":"P"}},"callback":"callBackFunc"}';
+        _kbBridge.exec(json)
+    }
+</script>
+</div>
+
+<div class="item">
+    <p># Received from Native</p>
+    <p id="demo"></p>
+</div>
+
+</body>
+</html>
